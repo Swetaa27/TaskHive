@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Monthly Planner</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4ece4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .planner-container {
+            width: 90%;
+            background-color: #f4ece4;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #b09a8e;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        h1 span {
+            font-family: 'Cursive', sans-serif;
+            color: #6b6661;
+        }
+
+        .input-fields {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .input-fields input,
+        .input-fields select {
+            padding: 10px;
+            border: none;
+            background-color: #b09a8e;
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #b09a8e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ab86da;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(6, 1fr);
+            gap: 10px;
+        }
+
+        .day-header, .week-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            flex-direction: column;
+            background-color: #e0cfc3;
+        }
+
+        .day-header {
+            background-color: #4f4f4f;
+            color: white;
+            font-weight: bold;
+        }
+
+        .week-box {
+            background-color: #b09a8e;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .week-box input {
+            display: none;
+        }
+
+        .highlighted {
+            border: 2px solid #ab86da;
+        }
+
+        .task {
+            font-size: 0.9rem;
+            color: #fff;
+            margin-top: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .task button {
+            background-color: #e74c3c;
+            border: none;
+            color: white;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .priority-low {
+            background-color: #5cb85c;
+        }
+
+        .priority-medium {
+            background-color: #f0ad4e;
+        }
+
+        .priority-high {
+            background-color: #d9534f;
+        }
+
+        .calendar-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .calendar-navigation button {
+            background-color: #b09a8e;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Small task number styling */
+        .task-number {
+            font-size: 0.7rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #fff;
+            color: #b09a8e;
+            padding: 2px 4px;
+            border-radius: 50%;
+        }
+
+        /* Dashboard button styling */
+        .dashboard-button {
+            background-color: #6b6661;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .dashboard-button:hover {
+            background-color: #5a5248;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="planner-container">
+        <!-- Title -->
+        <h1>MONTHLY <span>planner</span></h1>
+
+        <!-- Input Fields for Month and Year -->
+        <div class="input-fields">
+            <button id="prevMonthBtn">Previous Month</button>
+            <input type="text" id="currentMonth" disabled />
+            <button id="nextMonthBtn">Next Month</button>
+        </div>
+
+        <!-- Grid for the Monthly Planner -->
+        <div class="grid" id="plannerGrid">
+            <!-- Day Headers -->
+            <div class="day-header">Sunday</div>
+            <div class="day-header">Monday</div>
+            <div class="day-header">Tuesday</div>
+            <div class="day-header">Wednesday</div>
+            <div class="day-header">Thursday</div>
+            <div class="day-header">Friday</div>
+            <div class="day-header">Saturday</div>
+        </div>
+
+        <!-- Link to Dashboard -->
+        <a href="dashboard.html" class="dashboard-button">Go to Dashboard</a>
+    </div>
+
+    <script>
+        const plannerGrid = document.getElementById('plannerGrid');
+        const currentMonthInput = document.getElementById('currentMonth');
+        const prevMonthBtn = document.getElementById('prevMonthBtn');
+        const nextMonthBtn = document.getElementById('nextMonthBtn');
+
+        let currentDate = new Date();
+
+        // Function to get the number of days in a month
+        function daysInMonth(month, year) {
+            return new Date(year, month + 1, 0).getDate();
+        }
+
+        // Function to update the planner grid based on the month and year
+        function updateCalendar(month, year) {
+            plannerGrid.innerHTML = `
+                <div class="day-header">Sunday</div>
+                <div class="day-header">Monday</div>
+                <div class="day-header">Tuesday</div>
+                <div class="day-header">Wednesday</div>
+                <div class="day-header">Thursday</div>
+                <div class="day-header">Friday</div>
+                <div class="day-header">Saturday</div>
+            `; // Reset grid content with day headers
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const totalDays = daysInMonth(month, year);
+
+            // Add empty boxes for the days before the first day of the month
+            for (let i = 0; i < firstDay; i++) {
+                plannerGrid.innerHTML += '<div class="week-box"></div>';
+            }
+
+            // Add boxes for each day of the month
+            for (let day = 1; day <= totalDays; day++) {
+                const weekBox = document.createElement('div');
+                weekBox.classList.add('week-box');
+                weekBox.innerHTML = `<span>${day}</span>`;
+                weekBox.setAttribute('data-day', day);
+                plannerGrid.appendChild(weekBox);
+
+                // Add click listener to the box for task input
+                weekBox.addEventListener('click', () => {
+                    const task = prompt(`Enter task for ${day} ${monthNames[month]} ${year}:`);
+                    if (task) {
+                        const taskElement = document.createElement('div');
+                        taskElement.classList.add('task');
+                        taskElement.innerHTML = `${task} <span class="task-number">${day}</span>`;
+                        weekBox.appendChild(taskElement);
+                    }
+                });
+            }
+
+            currentMonthInput.value = `${monthNames[month]} ${year}`;
+        }
+
+        // Array of month names
+        const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+        ];
+
+        // Navigate to previous month
+        prevMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            updateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        });
+
+        // Navigate to next month
+        nextMonthBtn.addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            updateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+        });
+
+        // Initialize the calendar
+        updateCalendar(currentDate.getMonth(), currentDate.getFullYear());
+    </script>
+
+</body>
+</html>

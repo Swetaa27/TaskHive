@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress Tracking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4ece4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .tracker-container {
+            width: 90%;
+            background-color: #f4ece4;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #b09a8e;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        h1 span {
+            font-family: 'Cursive', sans-serif;
+            color: #6b6661;
+        }
+
+        .input-fields {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .input-fields input,
+        .input-fields select {
+            padding: 10px;
+            border: none;
+            background-color: #b09a8e;
+            color: #fff;
+            font-size: 1rem;
+            border-radius: 5px;
+            outline: none;
+            width: 48%;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #b09a8e;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ab86da;
+        }
+
+        .task-list {
+            margin-top: 20px;
+        }
+
+        .task-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #e0cfc3;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .task-item.completed {
+            background-color: #b09a8e;
+            text-decoration: line-through;
+        }
+
+        .task-item button {
+            background-color: #e74c3c;
+        }
+
+        .task-item button.completed {
+            background-color: #5cb85c;
+        }
+
+        .task-item span {
+            font-size: 1.1rem;
+        }
+
+        .dashboard-button {
+            background-color: #6b6661;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .dashboard-button:hover {
+            background-color: #5a5248;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="tracker-container">
+        <h1>Progress <span>Tracking</span></h1>
+
+        <div class="input-fields">
+            <input type="text" id="taskInput" placeholder="Enter task..." />
+            <input type="date" id="deadlineInput" />
+            <button id="addTaskBtn">Add Task</button>
+        </div>
+
+        <div class="task-list" id="taskList"></div>
+
+        <a href="dashboard.html" class="dashboard-button">Go to Dashboard</a>
+    </div>
+
+    <script>
+        const taskInput = document.getElementById('taskInput');
+        const deadlineInput = document.getElementById('deadlineInput');
+        const addTaskBtn = document.getElementById('addTaskBtn');
+        const taskList = document.getElementById('taskList');
+
+        // Function to add a task to the list
+        addTaskBtn.addEventListener('click', () => {
+            const taskValue = taskInput.value;
+            const deadlineValue = deadlineInput.value;
+
+            if (taskValue && deadlineValue) {
+                const taskItem = document.createElement('div');
+                taskItem.classList.add('task-item');
+                taskItem.innerHTML = `
+                    <span>${taskValue} - Deadline: ${new Date(deadlineValue).toLocaleDateString()}</span>
+                    <button class="completeBtn">Complete</button>
+                `;
+                taskList.appendChild(taskItem);
+
+                // Event listener for completing a task
+                const completeBtn = taskItem.querySelector('.completeBtn');
+                completeBtn.addEventListener('click', () => {
+                    taskItem.classList.toggle('completed');
+                    completeBtn.classList.toggle('completed');
+                    completeBtn.textContent = completeBtn.classList.contains('completed') ? 'Undo' : 'Complete';
+                });
+
+                // Clear input fields
+                taskInput.value = '';
+                deadlineInput.value = '';
+            } else {
+                alert('Please enter both a task and a deadline.');
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Day - TaskHive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Johnathan&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Johnathan', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('dash.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: rgba(176, 154, 142, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h2 {
+            text-align: center;
+            color: #af8f7e;
+        }
+
+        .columns {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .columns div {
+            width: 48%; /* Adjusted width for better layout */
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 10px;
+            background-color: #fff;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            color: #000;
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: rgb(76, 80, 76);
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.9); /* Slight background for better contrast */
+            border-radius: 5px;
+        }
+
+        .add-task, .completed-button {
+            background-color: #7b7471;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .add-task:hover, .completed-button:hover {
+            background-color: #e0e0e0;
+            color: #000;
+        }
+
+        .completed-tasks {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px; /* Adjusted padding for more space */
+            border-radius: 5px;
+            text-align: left; /* Left-aligned content */
+            max-height: 300px; /* Max height with scroll */
+            overflow-y: auto; /* Scroll when content exceeds */
+        }
+
+        .back-to-dashboard {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #7b7471;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .back-to-dashboard:hover {
+            background-color: #e0e0e0;
+            color: #000;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Tasks</h2>
+
+        <div class="columns">
+            <!-- My Tasks Column -->
+            <div>
+                <h3>My Tasks</h3>
+                <ul id="my-tasks">
+                    <li>
+                        <input type="checkbox" id="task1" onclick="moveTask('task1', 'WTA Assignment')">
+                        <label for="task1">WTA Assignment</label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="task2" onclick="moveTask('task2', 'ML Project')">
+                        <label for="task2">ML Project</label>
+                    </li>
+                </ul>
+                <button class="add-task" onclick="addTask()">+ Add Task</button>
+            </div>
+
+            <!-- Completed Tasks Column -->
+            <div>
+                <h3>Completed Tasks</h3>
+                <div class="completed-tasks" id="completed-tasks">
+                    <!-- Completed tasks will be added here -->
+                    <button class="completed-button" onclick="toggleCompletedTasks()">View Completed Tasks</button>
+                </div>
+            </div>
+        </div>
+
+        <a href="Dashboard.html" class="back-to-dashboard">Go to Dashboard</a>
+    </div>
+
+    <script>
+        // Move task from 'My Tasks' to 'Completed Tasks'
+        function moveTask(taskId, taskName) {
+            const taskElement = document.getElementById(taskId);
+            const completedTasks = document.getElementById('completed-tasks');
+
+            if (taskElement.checked) {
+                const completedTaskHTML = `<div class="completed">${taskName} &#10003;</div>`;
+                completedTasks.insertAdjacentHTML('beforeend', completedTaskHTML);
+                taskElement.parentElement.remove(); // Remove from My Tasks
+            }
+        }
+
+        // Function to add a new task
+        function addTask() {
+            const taskName = prompt('Enter the new task:');
+            if (taskName) {
+                const taskId = `task${new Date().getTime()}`; // Unique ID based on timestamp
+                const taskHTML = `
+                    <li>
+                        <input type="checkbox" id="${taskId}" onclick="moveTask('${taskId}', '${taskName}')">
+                        <label for="${taskId}">${taskName}</label>
+                    </li>`;
+                document.getElementById('my-tasks').insertAdjacentHTML('beforeend', taskHTML);
+            }
+        }
+
+        // Function to toggle visibility of completed tasks
+        function toggleCompletedTasks() {
+            const completedSection = document.getElementById('completed-tasks');
+            completedSection.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+@font-face {
+    font-family: 'Johnathan';
+    src: url('fonts/Johnathan.ttf') format('truetype'); /* Adjust the file name and path */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Johnathan', sans-serif;
+    background-color: #beb1a0;
+    background-image: url('home.jpeg'); /* Replace with your image URL */
+    background-size: cover;
+    background-position: center;
+    color: rgb(7, 5, 5); /* Adjust as needed */
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.container {
+    animation: breathe 3s infinite;
+}
+
+h1 {
+    font-size: 4rem; /* Adjust the size as needed */
+    font-weight: bold; /* Make the text bold */
+    animation: breathe 3s infinite; /* Apply the breathe animation */
+    margin: 0; /* Remove default margin */
+}
+
+@keyframes breathe {
+    0% { opacity: 0.9; }
+    50% { opacity: 1; } /* Change this value to keep it within a reasonable range */
+    100% { opacity: 0.9; }
+}
+
+.login-box {
+    margin-top: 3px;
+}
+
+.login-box button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #ffffff; /* Button color */
+    color: #000000; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-box button:hover {
+    background-color: #e0e0e0; /* Button hover effect */
+}
+
+.login-container {
+    font-family: 'Johnathan', sans-serif;
+    background-color: #beb1a0;
+    color: rgb(7, 5, 5);
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 20px;
+}
+
+.social-login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.social-box {
+    padding: 15px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.social-box:hover {
+    background-color: #e0e0e0; /* Hover effect for social boxes */
+}
+
+.email-login {
+    margin-top: 20px;
+}
+
+.email-login input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.login-button {
+    margin-top: 10px;
+}
+
+.login-button button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #ffffff; /* Button color */
+    color: #000000; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button button:hover {
+    background-color: #e0e0e0; /* Button hover effect */
+}
+
+.back-link {
+    display: block;
+    margin-top: 20px;
+    color: blue; /* Adjust color as needed */
+    text-decoration: underline;
+}

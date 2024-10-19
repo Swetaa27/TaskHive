@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Planner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F9F6F3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .planner-container {
+            background-color: #F9F6F3;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 1200px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            letter-spacing: 0.1em;
+            color: #B8B4AF;
+            position: relative;
+        }
+        .planner-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 15px;
+            margin-top: 20px;
+        }
+        .day-button {
+            background-color: #B9A89A;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.5em;
+            color: #FFF;
+            text-transform: uppercase;
+            font-weight: bold;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            border: none;
+        }
+        .day-button:hover {
+            background-color: #A89582;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #FFF;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+        .modal h2 {
+            margin-top: 0;
+        }
+        .modal ul {
+            list-style: none;
+            padding: 0;
+        }
+        .modal ul li {
+            margin: 5px 0;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+        .close-modal {
+            background-color: #ff6666;
+            color: #FFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .close-modal:hover {
+            background-color: #e60000;
+        }
+        .add-task-button {
+            margin-top: 20px;
+            background-color: #6F6A66;
+            color: #FFF;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-task-button:hover {
+            background-color: #504a48;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="planner-container">
+        <h1>Weekly Planner</h1>
+        <div class="planner-grid">
+            <button class="day-button" onclick="showTasks('monday')">Monday</button>
+            <button class="day-button" onclick="showTasks('tuesday')">Tuesday</button>
+            <button class="day-button" onclick="showTasks('wednesday')">Wednesday</button>
+            <button class="day-button" onclick="showTasks('thursday')">Thursday</button>
+            <button class="day-button" onclick="showTasks('friday')">Friday</button>
+            <button class="day-button" onclick="showTasks('saturday')">Saturday</button>
+            <button class="day-button" onclick="showTasks('sunday')">Sunday</button>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <h2 id="day-title"></h2>
+            <ul id="task-list"></ul>
+            <button class="add-task-button" onclick="addTaskToDay()">Add Task</button>
+            <br><br>
+            <button class="close-modal" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        let currentDay = '';
+
+        // Function to display tasks in the modal
+        function showTasks(day) {
+            currentDay = day;  // Set the current day
+            document.getElementById('day-title').innerText = day.charAt(0).toUpperCase() + day.slice(1);
+
+            const tasks = JSON.parse(localStorage.getItem(`tasks-${day}`) || "[]");
+            const taskList = document.getElementById('task-list');
+            taskList.innerHTML = '';  // Clear the list before displaying
+
+            // Loop through tasks and display them
+            tasks.forEach(task => {
+                const listItem = document.createElement('li');
+                listItem.innerText = `${task.time}: ${task.task}`;
+                taskList.appendChild(listItem);
+            });
+
+            document.getElementById('task-modal').style.display = 'flex';  // Show the modal
+        }
+
+        // Close the task modal
+        function closeModal() {
+            document.getElementById('task-modal').style.display = 'none';
+        }
+
+        // Function to add a task to the current day
+        function addTaskToDay() {
+            const task = prompt("Enter your task:");
+            const time = prompt("Enter time for the task (e.g., 10:00 AM):");
+
+            if (task && time) {
+                // Retrieve existing tasks or initialize an empty array
+                const tasks = JSON.parse(localStorage.getItem(`tasks-${currentDay}`) || "[]");
+                
+                // Add the new task and time
+                tasks.push({ task, time });
+                
+                // Save the updated task list back to local storage
+                localStorage.setItem(`tasks-${currentDay}`, JSON.stringify(tasks));
+                
+                // Reload the tasks for the current day to show the new task immediately
+                showTasks(currentDay);  
+            }
+        }
+    </script>
+
+</body>
+</html>

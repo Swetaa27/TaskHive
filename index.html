@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskHive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Johnathan&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Johnathan', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('home.jpeg') no-repeat center center fixed; /* Background image */
+            background-size: cover; /* Full-screen cover */
+            color: #fff; /* Text color */
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(107, 85, 73, 0.8); /* Slightly transparent background */
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            animation: breathe 5s infinite; /* Breathe animation (if applied to container) */
+        }
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-title img {
+            width: 100px; /* Adjust logo size */
+            height: auto;
+            margin-right: 20px; /* Space between logo and title */
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #0a0a0a; /* Softer title color */
+            margin: 0;
+            overflow: hidden; /* This will hide the text until the animation reveals it */
+            white-space: nowrap; /* Prevents text from wrapping */
+            width: 0; /* Start with zero width */
+            animation: wipe 3s ease forwards; /* Wipe animation with ease effect */
+        }
+
+        @keyframes wipe {
+            from {
+                width: 0; /* Start hidden */
+            }
+            to {
+                width: 100%; /* End with full width */
+            }
+        }
+
+        @keyframes breathe {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        p {
+            font-size: 1.3em;
+            color: #f5f0ea; /* Lighter text color */
+            margin-bottom: 30px;
+        }
+
+        .login-box button {
+            background-color: #7b7471; /* Soft brown button */
+            color: #fff;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        .login-box button:hover {
+            background-color: #b19e99; /* Darker shade on hover */
+        }
+
+        .login-box a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-title">
+            <img src="logo.jpg" alt="TaskHive Logo"> <!-- Logo image -->
+            <h1>TaskHive</h1>
+        </div>
+        <p>Where Every Task Finds Its Place.</p>
+        <div class="login-box">
+            <a href="login.html"><button>Login</button></a> <!-- Link to login page -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

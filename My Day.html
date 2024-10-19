@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Day - TaskHive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Johnathan&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Johnathan', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('dash.jpeg') no-repeat center center fixed; /* Background image */
+            background-size: cover; /* Cover the entire viewport */
+            color: #fff; /* Text color */
+        }
+
+        .myday-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh; /* Full height of the viewport */
+            padding: 20px;
+            background-color: rgba(180, 161, 151, 0.8); /* Slightly transparent background */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+        }
+
+        h2 {
+            margin: 20px 0; /* Spacing above and below the heading */
+            color: #60493c; /* Heading color */
+        }
+
+        .date {
+            font-size: 20px; /* Font size for the date */
+            margin-bottom: 20px; /* Spacing below the date */
+            color: #462f04; /* Date color */
+        }
+
+        .add-task-button,
+        .back-to-dashboard {
+            padding: 10px 20px; /* Button padding */
+            background-color: #7b7471; /* Button background */
+            color: #fff; /* Button text color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer; /* Change cursor on hover */
+            transition: background-color 0.3s; /* Smooth transition for hover effect */
+            margin: 10px 0; /* Spacing between buttons */
+            text-decoration: none; /* Remove underline for the link */
+            text-align: center; /* Center text */
+        }
+
+        .add-task-button:hover,
+        .back-to-dashboard:hover {
+            background-color: #e0e0e0; /* Button hover effect */
+            color: #000; /* Change text color on hover */
+        }
+
+        .task-list {
+            margin-top: 20px; /* Spacing above the task list */
+            list-style-type: none; /* Remove default list styling */
+            padding: 0; /* Remove default padding */
+            width: 100%; /* Full width */
+        }
+
+        .task-item {
+            background-color: #fff; /* Background color for task items */
+            color: #000; /* Text color for task items */
+            padding: 10px; /* Padding for task items */
+            border-radius: 5px; /* Rounded corners */
+            margin: 5px 0; /* Margin between task items */
+            display: flex;
+            justify-content: space-between; /* Space between task text and time */
+        }
+    </style>
+</head>
+<body>
+    <div class="myday-container">
+        <h2>My Day</h2>
+        <div class="date">
+            <!-- Display today's date -->
+            <script>
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                document.write(new Date().toLocaleDateString(undefined, options));
+            </script>
+        </div>
+        <button class="add-task-button" onclick="addTask()">+ Add Task</button>
+        <a href="Dashboard.html" class="back-to-dashboard">Back to Dashboard</a> <!-- Link back to dashboard -->
+        
+        <ul class="task-list" id="taskList"></ul> <!-- Task list to display added tasks -->
+    </div>
+    
+    <script>
+        function addTask() {
+            const task = prompt("Enter your task:");
+            if (task) {
+                const time = new Date().toLocaleTimeString(); // Get current time
+                const taskList = document.getElementById('taskList');
+                
+                // Create a new list item for the task
+                const listItem = document.createElement('li');
+                listItem.className = 'task-item';
+                listItem.textContent = task;
+
+                // Create a span to hold the time and add it to the list item
+                const timeSpan = document.createElement('span');
+                timeSpan.textContent = time;
+                listItem.appendChild(timeSpan);
+                
+                // Add the task item to the task list
+                taskList.appendChild(listItem);
+            }
+        }
+    </script>
+</body>
+</html>
