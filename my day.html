@@ -3,117 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Day - TaskHive</title>
+    <title>Dashboard - TaskHive</title>
     <link href="https://fonts.googleapis.com/css2?family=Johnathan&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            font-family: 'Johnathan', sans-serif;
             margin: 0;
             padding: 0;
+            font-family: 'Johnathan', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             background: url('dash.jpeg') no-repeat center center fixed; /* Background image */
-            background-size: cover; /* Cover the entire viewport */
-            color: #fff; /* Text color */
+            background-size: cover;
+            color: #fff; /* White text color */
         }
 
-        .myday-container {
+        .dashboard-container {
+            text-align: center;
+            background-color: rgba(176, 154, 142, 0.85); /* Transparent background for text clarity */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 900px;
+        }
+
+        .nav-bar {
+            list-style: none;
+            padding: 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh; /* Full height of the viewport */
-            padding: 20px;
-            background-color: rgba(180, 161, 151, 0.8); /* Slightly transparent background */
-            border-radius: 10px; /* Rounded corners */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Shadow effect */
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+
+        .nav-bar a {
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #7b7471; /* Soft brown button color */
+            color: #fff; /* Button text color */
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-bar a:hover {
+            background-color: #b19e99; /* Hover effect for navigation buttons */
         }
 
         h2 {
-            margin: 20px 0; /* Spacing above and below the heading */
-            color: #60493c; /* Heading color */
+            font-size: 2.5em;
+            color: #fff;
+            margin-bottom: 20px;
         }
 
-        .date {
-            font-size: 20px; /* Font size for the date */
-            margin-bottom: 20px; /* Spacing below the date */
-            color: #462f04; /* Date color */
-        }
-
-        .add-task-button,
-        .back-to-dashboard {
-            padding: 10px 20px; /* Button padding */
-            background-color: #7b7471; /* Button background */
-            color: #fff; /* Button text color */
-            border: none;
-            border-radius: 5px;
-            cursor: pointer; /* Change cursor on hover */
-            transition: background-color 0.3s; /* Smooth transition for hover effect */
-            margin: 10px 0; /* Spacing between buttons */
-            text-decoration: none; /* Remove underline for the link */
-            text-align: center; /* Center text */
-        }
-
-        .add-task-button:hover,
-        .back-to-dashboard:hover {
-            background-color: #e0e0e0; /* Button hover effect */
-            color: #000; /* Change text color on hover */
-        }
-
-        .task-list {
-            margin-top: 20px; /* Spacing above the task list */
-            list-style-type: none; /* Remove default list styling */
-            padding: 0; /* Remove default padding */
-            width: 100%; /* Full width */
-        }
-
-        .task-item {
-            background-color: #fff; /* Background color for task items */
-            color: #000; /* Text color for task items */
-            padding: 10px; /* Padding for task items */
-            border-radius: 5px; /* Rounded corners */
-            margin: 5px 0; /* Margin between task items */
+        .feature-links {
             display: flex;
-            justify-content: space-between; /* Space between task text and time */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-box {
+            display: block;
+            width: 220px; /* Fixed width for all feature boxes */
+            margin: 10px 0;
+            padding: 15px;
+            background-color: #7b7471; /* Soft brown for feature boxes */
+            color: #fff;
+            text-align: center;
+            border-radius: 25px;
+            text-decoration: none;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        .feature-box:hover {
+            background-color: #b19e99; /* Hover effect for feature boxes */
         }
     </style>
 </head>
 <body>
-    <div class="myday-container">
-        <h2>My Day</h2>
-        <div class="date">
-            <!-- Display today's date -->
-            <script>
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                document.write(new Date().toLocaleDateString(undefined, options));
-            </script>
+    <div class="dashboard-container">
+        <nav>
+            <ul class="nav-bar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="modes.html">Toggle Mode</a></li> <!-- Link to change modes -->
+                <li><a href="index.html">Log Out</a></li>
+            </ul>
+        </nav>
+        <h2>Dashboard</h2>
+        <div class="dashboard-content">
+            <h3>Features</h3>
+            <div class="feature-links">
+                <a href="My Day.html" class="feature-box">My Day</a>
+                <a href="To-do.html" class="feature-box">To-do Tasks</a>
+                <a href="Weekly Planner.html" class="feature-box">Weekly Planner</a>
+                <a href="Monthly Planner.html" class="feature-box">Monthly Planner</a>
+                <a href="progress tracking.html" class="feature-box">Progress Tracking</a>
+            </div>
         </div>
-        <button class="add-task-button" onclick="addTask()">+ Add Task</button>
-        <a href="dashboard.html" class="back-to-dashboard">Back to Dashboard</a> <!-- Link back to dashboard -->
-        
-        <ul class="task-list" id="taskList"></ul> <!-- Task list to display added tasks -->
     </div>
-    
-    <script>
-        function addTask() {
-            const task = prompt("Enter your task:");
-            if (task) {
-                const time = new Date().toLocaleTimeString(); // Get current time
-                const taskList = document.getElementById('taskList');
-                
-                // Create a new list item for the task
-                const listItem = document.createElement('li');
-                listItem.className = 'task-item';
-                listItem.textContent = task;
-
-                // Create a span to hold the time and add it to the list item
-                const timeSpan = document.createElement('span');
-                timeSpan.textContent = time;
-                listItem.appendChild(timeSpan);
-                
-                // Add the task item to the task list
-                taskList.appendChild(listItem);
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
