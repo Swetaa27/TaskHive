@@ -51,6 +51,22 @@
         .day-button:hover {
             background-color: #A89582;
         }
+        /* Dashboard button styling */
+        .dashboard-button {
+            background-color: #6b6661;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 40px; /* Adjusted space below Sunday */
+            grid-column: 1 / span 3; /* Span across all columns */
+            text-align: center;
+        }
+
+        .dashboard-button:hover {
+            background-color: #5a5248;
+        }
         .modal {
             display: none;
             position: fixed;
@@ -105,6 +121,7 @@
         .add-task-button:hover {
             background-color: #504a48;
         }
+
     </style>
 </head>
 <body>
@@ -119,6 +136,9 @@
             <button class="day-button" onclick="showTasks('friday')">Friday</button>
             <button class="day-button" onclick="showTasks('saturday')">Saturday</button>
             <button class="day-button" onclick="showTasks('sunday')">Sunday</button>
+
+            <!-- Go to Dashboard button placed under Sunday -->
+            <a href="dashboard.html" class="dashboard-button">Go to Dashboard</a>
         </div>
     </div>
 
