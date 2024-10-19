@@ -35,6 +35,25 @@
             margin-bottom: 30px;
         }
 
+        .social-login {
+            margin-bottom: 20px;
+        }
+
+        .social-box {
+            background-color: #7b7471;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 10px 0;
+            cursor: pointer;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        .social-box:hover {
+            background-color: #b19e99;
+        }
+
         .email-login input {
             width: 100%;
             padding: 10px;
@@ -80,6 +99,17 @@
 <body>
     <div class="login-container">
         <h2>Log in</h2>
+        <div class="social-login">
+            <div class="social-box" onclick="handleGoogleLogin()">
+                <p>Continue with Google</p>
+            </div>
+            <div class="social-box" onclick="handleFacebookLogin()">
+                <p>Continue with Facebook</p>
+            </div>
+            <div class="social-box" onclick="handleAppleLogin()">
+                <p>Continue with Apple</p>
+            </div>
+        </div>
         <div class="email-login">
             <input type="email" id="email" placeholder="Enter your email" required>
             <input type="password" id="password" placeholder="Enter your password" required>
